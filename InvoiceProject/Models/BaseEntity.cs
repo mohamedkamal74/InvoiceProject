@@ -2,7 +2,7 @@
 
 namespace InvoiceProject.Models
 {
-    public class BaseEntity
+    public class BaseEntity:RelBranch
     {
         public int CurrentState { get; set; } = 1;
         public string CreateUserId { get; set; }
