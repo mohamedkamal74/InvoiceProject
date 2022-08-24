@@ -1,10 +1,14 @@
-﻿using InvoiceProject.Models;
+﻿using InvoiceProject.Data;
+using InvoiceProject.Models;
+using InvoiceProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace InvoiceProject.Controllers
@@ -12,20 +16,28 @@ namespace InvoiceProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+           
             return View();
         }
 
         public IActionResult Invoice()
         {
-            return View();
+            return View(new BuyInvoiceViewModel
+            {
+                CategoriesList = _context.Categories.Where(x => x.CurrentState > 0 && x.BranchId == 2).ToList(),
+                SuppllierList = _context.Suppliers.Where(x => x.CurrentState > 0 && x.BranchId == 2).ToList()
+
+            });
         }
 
 
