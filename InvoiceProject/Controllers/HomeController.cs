@@ -18,7 +18,7 @@ namespace InvoiceProject.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger,ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
             _context = context;
@@ -26,7 +26,7 @@ namespace InvoiceProject.Controllers
 
         public IActionResult Index()
         {
-           
+
             return View();
         }
 
@@ -38,6 +38,11 @@ namespace InvoiceProject.Controllers
                 SuppllierList = _context.Suppliers.Where(x => x.CurrentState > 0 && x.BranchId == 2).ToList()
 
             });
+        }
+
+        public IActionResult GetProduct(int? id)
+        {
+            return Json(_context.Products.Where(x => x.CurrentState > 0 && x.BranchId == 2 && x.CategoryId == id).ToList());
         }
 
 
