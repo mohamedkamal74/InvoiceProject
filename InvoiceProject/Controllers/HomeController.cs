@@ -45,6 +45,11 @@ namespace InvoiceProject.Controllers
             return Json(_context.Products.Where(x => x.CurrentState > 0 && x.BranchId == 2 && x.CategoryId == id).ToList());
         }
 
+        public IActionResult GetPriceProduct(int? id)
+        {
+            return Json(_context.Products.FirstOrDefault(x => x.CurrentState > 0 && x.BranchId == 2 && x.ProductId == id));
+        }
+
 
         public IActionResult Privacy()
         {
