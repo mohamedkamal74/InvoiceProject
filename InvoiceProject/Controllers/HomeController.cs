@@ -51,6 +51,8 @@ namespace InvoiceProject.Controllers
         }
 
 
+
+
         public IActionResult Privacy()
         {
             return View();

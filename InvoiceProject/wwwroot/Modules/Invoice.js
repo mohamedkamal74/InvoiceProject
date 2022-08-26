@@ -1,5 +1,8 @@
 ﻿
 let ddlCategoryId = document.getElementById("ddlCategoryId");
+let ddlProduct = document.getElementById("ddlProduct");
+let quntity = document.getElementById("quntity");
+let price = document.getElementById("price");
 
 //get or return product where category id
 
@@ -37,6 +40,35 @@ ShowPrice = () => {
 
             $("#price").val(data.price);
         }
+    });
+
+}
+
+  SaveProduct = () => {
+
+    let objProduct = {
+        CategoryId: ddlCategoryId.value,
+        ProductId: ddlProduct.value,
+        Price: price.value,
+        Quantity: quntity.value,
+        Total: price.value * quntity.value
+
+    };
+
+      let data = JSON.stringify(objProduct);
+
+    $.ajax({
+
+
+        url: '/api/APIInvoice',
+        method: 'POST',
+        contentType: 'application/json',
+        data: data,
+        cache: false,
+        success: (data) => {
+            alert("data saved ");
+        }
+
     });
 
 }
