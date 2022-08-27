@@ -70,8 +70,26 @@ namespace InvoiceProject.APISControllers
 
         // DELETE api/<APIInvoiceController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                var result = _context.InvoiceTemps.FirstOrDefault(x => x.InvoiceId == id && x.BranchId == 2);
+                if (result == null)
+                    return BadRequest();
+                else
+                {
+                    _context.InvoiceTemps.Remove(result);
+                    _context.SaveChanges();
+                    return Ok();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

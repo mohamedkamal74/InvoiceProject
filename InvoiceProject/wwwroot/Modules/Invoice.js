@@ -104,7 +104,7 @@ ResetData = () => {
                 <td>${data[x].price}</td>
                 <td>${data[x].quantity}</td>
                 <td>${data[x].total}</td>
-                <td><a class="btn btn-danger" style="color:#ffff"><i class="fa fa-trash"></i></a> </td>
+                <td><a class="btn btn-danger" onclick="RemoveRow(${data[x].invoiceId})" style="color:#ffff"><i class="fa fa-trash"></i></a> </td>
               
 
                      </tr>
@@ -119,6 +119,24 @@ ResetData = () => {
 
     });
 }
+
+
+RemoveRow = (id) => {
+
+    $.ajax({
+
+        url: `/api/APIInvoice/${id}`,
+        method: 'DELETE',
+        cache: false,
+        success: () => {
+            alert('data Deleted');
+            ShowTable();
+        }
+
+
+    });
+}
+
 
 
 $(document).ready(() => {
