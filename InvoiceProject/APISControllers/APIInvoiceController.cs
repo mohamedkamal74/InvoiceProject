@@ -27,6 +27,12 @@ namespace InvoiceProject.APISControllers
             return Ok(_context.InvoiceTemps.Include(x=>x.Category).Include(x=>x.Product).Where(x=>x.BranchId==2).ToList());
         }
 
+        [HttpGet("GetAllTotal")]
+        public IActionResult GetAllTotal()
+        {
+            return Ok(_context.InvoiceTemps.Where(x => x.BranchId == 2).Sum(x=>x.Total));
+        }
+
         // GET api/<APIInvoiceController>/5
         [HttpGet("{id}")]
         public string Get(int id)

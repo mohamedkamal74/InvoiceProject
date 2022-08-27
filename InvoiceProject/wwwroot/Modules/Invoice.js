@@ -70,6 +70,8 @@ SaveProduct = () => {
 
             ResetData();
             ShowTable();
+            GetTotal();
+
         }
 
     });
@@ -123,23 +125,52 @@ ResetData = () => {
 
 RemoveRow = (id) => {
 
+    if (confirm(" !!!! هل انت متاكد من الحذف ") == true) {
+        $.ajax({
+
+            url: `/api/APIInvoice/${id}`,
+            method: 'DELETE',
+            cache: false,
+            success: () => {
+                alert('تم الحذف بنجاح');
+                ShowTable();
+                GetTotal();
+
+            }
+        });
+    }
+  
+}
+
+GetTotal = () => {
+
     $.ajax({
 
-        url: `/api/APIInvoice/${id}`,
-        method: 'DELETE',
+        url: `/api/APIInvoice/GetAllTotal`,
+        method: 'GET',
         cache: false,
-        success: () => {
-            alert('data Deleted');
-            ShowTable();
+        success: (data) => {
+
+            $('#allTotal').val(data);
+            $('#afterDescount').val(data);
         }
 
-
     });
+
 }
 
 
+Discount = () => {
+
+    $('#afterDescount').val($('#allTotal').val() - $('#discount').val())
+}
+
+
+document.getElementById('discount').addEventListener('change', Discount);
+document.getElementById('discount').addEventListener('keyup', Discount);
 
 $(document).ready(() => {
     ShowTable();
+    GetTotal();
 
 });
