@@ -26,7 +26,7 @@ ShowProduct = () => {
             }
         });
     }
-   
+
 
 }
 
@@ -44,7 +44,7 @@ ShowPrice = () => {
 
 }
 
-  SaveProduct = () => {
+SaveProduct = () => {
 
     let objProduct = {
         CategoryId: ddlCategoryId.value,
@@ -55,7 +55,7 @@ ShowPrice = () => {
 
     };
 
-      let data = JSON.stringify(objProduct);
+    let data = JSON.stringify(objProduct);
 
     $.ajax({
 
@@ -67,8 +67,61 @@ ShowPrice = () => {
         cache: false,
         success: (data) => {
             alert("data saved ");
+
+            ResetData();
+            ShowTable();
         }
 
     });
 
 }
+
+ResetData = () => {
+    ddlCategoryId.value = '';
+    ddlProduct.value = '';
+    quntity.value = 1;
+    price.value = 0;
+}
+
+
+ ShowTable = () => {
+
+    $.ajax({
+
+        url: '/api/APIInvoice',
+        method: 'GET',
+        cache: false,
+        success: (data) => {
+
+            let Table = '';
+            for (x in data) {
+
+                Table += `
+                 <tr>
+                <td>#</td>
+                <td>${data[x].category.categoryName}</td>
+                <td>${data[x].product.productName}</td>
+                <td>${data[x].price}</td>
+                <td>${data[x].quantity}</td>
+                <td>${data[x].total}</td>
+                <td><a class="btn btn-danger" style="color:#ffff"><i class="fa fa-trash"></i></a> </td>
+              
+
+                     </tr>
+
+                         `;
+            }
+            $('#tablebody').html(Table);
+
+        }
+
+
+
+    });
+}
+
+
+$(document).ready(() => {
+    ShowTable();
+
+});

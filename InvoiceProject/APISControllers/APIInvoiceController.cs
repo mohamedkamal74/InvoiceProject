@@ -1,6 +1,7 @@
 ﻿using InvoiceProject.Data;
 using InvoiceProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace InvoiceProject.APISControllers
         }
         // GET: api/<APIInvoiceController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_context.InvoiceTemps.Include(x=>x.Category).Include(x=>x.Product).Where(x=>x.BranchId==2).ToList());
         }
 
         // GET api/<APIInvoiceController>/5
