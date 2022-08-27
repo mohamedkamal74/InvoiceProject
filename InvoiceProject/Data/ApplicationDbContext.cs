@@ -18,6 +18,8 @@ namespace InvoiceProject.Data
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<InvoiceTemp> InvoiceTemps { get; set; }
+        public DbSet<BuyInvoice> BuyInvoices { get; set; }
+        public DbSet<BuyInvoiceItem> BuyInvoiceItems { get; set; }
        
     }
 }
