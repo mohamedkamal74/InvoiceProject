@@ -49,7 +49,7 @@
     <div class="col-md-2">
         <div class="form-group">
             <label>السعر</label>
-            <input class="form-control" type="number" value="0" id="price"/>
+            <input class="form-control" type="number" value="0" readonly id="price"/>
         </div>
     </div>
     <div class="col-md-1">
@@ -91,7 +91,7 @@
 <div class="row pt-3" style="background:#a7f5b9">
     <div class="col-md-4  mb-1">
         <input class="btn btn-success" type="submit" value="حفظ الفاتورة" /> 
-        <input class="btn btn-danger"  value="حذف البيانات" />
+        <input class="btn btn-danger" type="button" onclick="ResetData()" value="حذف البيانات" />
     </div>
     <div class="col-md-3">
         <div class="input-group mb-3">

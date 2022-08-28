@@ -65,7 +65,12 @@ namespace InvoiceProject.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index","Home");
             }
-            return View(model.NewBuyInvoice);
+            return View(new BuyInvoiceViewModel
+            {
+                CategoriesList = _context.Categories.Where(x => x.CurrentState > 0 && x.BranchId == 2).ToList(),
+                SuppllierList = _context.Suppliers.Where(x => x.CurrentState > 0 && x.BranchId == 2).ToList()
+
+            });
         }
 
         public IActionResult GetProduct(int? id)
