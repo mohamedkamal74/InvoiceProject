@@ -7,7 +7,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <label>المورد</label>
-            <select class="form-control"  asp-items="@(new SelectList(Model.SuppllierList,"SupplierId","SupplierName"))">
+            <select class="form-control" asp-for="NewBuyInvoice.SupplierId" asp-items="@(new SelectList(Model.SuppllierList,"SupplierId","SupplierName"))">
                 <option value="">أختر أسم المورد</option>
             </select>
         </div>
@@ -15,7 +15,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <label>التاريخ</label>
-            <input class="form-control" type="date"  value="@(DateTime.Now.ToString("yyyyy-MM-dd"))" />
+            <input class="form-control" type="date"  asp-for="NewBuyInvoice.Date" value="@(DateTime.Now.ToString("yyyyy-MM-dd"))" />
         </div>
     </div>
 </div>
@@ -98,7 +98,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" >بعد الخصم</span>
             </div>
-            <input class="form-control" readonly type="number"  id="afterDescount" value="0" />
+            <input class="form-control" readonly type="number" asp-for="NewBuyInvoice.AfterDiscount"  id="afterDescount" value="0" />
         </div>
     </div>
     <div class="col-md-2">
@@ -106,7 +106,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon3">خصم</span>
             </div>
-            <input class="form-control"  type="number" id="discount" value="0" />
+            <input class="form-control" asp-for="NewBuyInvoice.Discount"  type="number" id="discount" value="0" />
         </div>
     </div>
 
@@ -115,7 +115,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" >الاجمالي</span>
             </div>
-            <input class="form-control"  readonly type="number" id="allTotal" value="0" />
+            <input class="form-control" asp-for="NewBuyInvoice.Total" readonly type="number" id="allTotal" value="0" />
         </div>
     </div>
 </div>

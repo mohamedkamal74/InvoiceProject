@@ -40,6 +40,34 @@ namespace InvoiceProject.Controllers
             });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Invoice(BuyInvoiceViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _context.InvoiceTemps.Where(x => x.BranchId == 2).ToList();
+                foreach (var item in result)
+                {
+                    model.NewBuyInvoice.BuyInvoiceItemList.Add(new BuyInvoiceItem()
+                    {
+                        CategoryId=item.CategoryId,
+                        ProductId=item.ProductId,
+                        Price=item.Price,
+                        Quantity=item.Quantity,
+                        Tatal=item.Total
+                    });
+                    _context.InvoiceTemps.Remove(item);
+                    _context.SaveChanges();
+                }
+                model.NewBuyInvoice.BranchId = 2;
+                _context.BuyInvoices.Add(model.NewBuyInvoice);
+                _context.SaveChanges();
+                return RedirectToAction("Index","Home");
+            }
+            return View(model.NewBuyInvoice);
+        }
+
         public IActionResult GetProduct(int? id)
         {
             return Json(_context.Products.Where(x => x.CurrentState > 0 && x.BranchId == 2 && x.CategoryId == id).ToList());
